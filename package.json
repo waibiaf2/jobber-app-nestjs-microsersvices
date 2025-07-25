@@ -2,7 +2,9 @@
   "name": "@jobber-app/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "prepare": "husky"
+  },
   "private": true,
   "dependencies": {
     "@apollo/server": "^4.12.2",
@@ -19,6 +21,9 @@
     "graphql": "^16.11.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0"
+  },
+  "overrides": {
+    "stylus": "^0.59.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
@@ -41,8 +46,10 @@
     "@types/node": "~18.16.9",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
+    "husky": "^9.1.7",
     "jest": "^30.0.2",
     "jest-environment-node": "^30.0.2",
+    "lint-staged": "^16.1.2",
     "nx": "21.3.3",
     "prettier": "^2.6.2",
     "prisma": "^6.12.0",
