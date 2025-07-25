@@ -6,15 +6,16 @@ import { CreateUserInput } from './dto/create-user.input';
 
 @Resolver(() => User)
 export class UsersResolver {
-  constructor(private readonly usersService: UsersService) {
-  }
+  constructor(private readonly usersService: UsersService) {}
 
   @Mutation(() => User)
   async createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.usersService.createUser(createUserInput);
+    const createdUser = this.usersService.createUser(createUserInput);
+    console.log(createdUser);
+    return createdUser;
   }
 
-  @Query(() => [User],{ name: 'users'} )
+  @Query(() => [User], { name: 'users' })
   async getUsers() {
     return this.usersService.getUsers();
   }
