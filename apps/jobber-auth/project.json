@@ -55,6 +55,13 @@
         "cwd": "apps/jobber-auth"
       }
     },
+    "prisma:push": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx prisma db push",
+        "cwd": "apps/jobber-auth"
+      }
+    },
     "prisma:reset": {
       "executor": "nx:run-commands",
       "options": {
