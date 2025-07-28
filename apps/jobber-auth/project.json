@@ -12,6 +12,9 @@
         "command": "webpack-cli build",
         "args": ["--node-env=production"]
       },
+      "test": {
+        "dependsOn": ["prisma:generate"]
+      },
       "configurations": {
         "development": {
           "args": ["--node-env=development"]
