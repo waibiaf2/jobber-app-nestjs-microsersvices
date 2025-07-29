@@ -1,13 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma-clients/jobber-auth';
 import { PrismaService } from '../prisma/prisma.service';
 import { hash } from 'bcryptjs';
 import { DeleteUserInput } from './dto/delete-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { BaseConfig } from '../config/base-config';
+import { ConfigService, ConfigType } from '@nestjs/config';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    /*@Inject(BaseConfig.KEY)
+    private readonly baseConfig: ConfigType<typeof BaseConfig>*/
+    private readonly configService: ConfigService
+  ) {}
+
   async createUser(data: Prisma.UserCreateInput) {
     return this.prismaService.user.create({
       data: {
@@ -18,6 +26,7 @@ export class UsersService {
   }
 
   async getUsers() {
+    console.log(this.configService.getOrThrow('APP_NAME'));
     return this.prismaService.user.findMany();
   }
 
