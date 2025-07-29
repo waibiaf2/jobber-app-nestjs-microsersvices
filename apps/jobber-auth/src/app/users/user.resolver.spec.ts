@@ -1,6 +1,8 @@
 import { UsersResolver } from './users.resolver';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { ConfigService } from '@nestjs/config';
 
 describe('UserResolver', () => {
   let resolver: UsersResolver;
@@ -8,6 +10,7 @@ describe('UserResolver', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
+        ConfigService,
         UsersResolver,
         {
           provide: UsersService,
