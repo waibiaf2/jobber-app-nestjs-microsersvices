@@ -1,11 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma-clients/jobber-auth';
 import { PrismaService } from '../prisma/prisma.service';
 import { hash } from 'bcryptjs';
 import { DeleteUserInput } from './dto/delete-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { BaseConfig } from '../config/base-config';
-import { ConfigService, ConfigType } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UsersService {
@@ -25,8 +24,14 @@ export class UsersService {
     });
   }
 
+  async getUser(args: Prisma.UserWhereUniqueInput) {
+    return await this.prismaService.user.findUniqueOrThrow({
+      where: args,
+      select: { id: true, email: true, password: true },
+    });
+  }
+
   async getUsers() {
-    console.log(this.configService.getOrThrow('APP_NAME'));
     return this.prismaService.user.findMany();
   }
 

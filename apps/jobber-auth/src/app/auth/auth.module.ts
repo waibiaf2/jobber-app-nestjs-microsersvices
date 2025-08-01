@@ -3,18 +3,21 @@ import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   imports: [
+    ConfigModule,
+    UsersModule,
     JwtModule.registerAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule, UsersModule],
+      inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        secret: configService.getOrThrow('AUTH_JWT_SECRET'),
+        secret: configService.getOrThrow('JWT_SECRET'),
         signOptions: {
-          expiresIn: configService.getOrThrow('AUTH_JWT_EXPIRES_IN'), // Token expiration time
+          expiresIn: configService.getOrThrow('JWT_EXPIRES_IN'), // Token expiration time
         },
       }),
-      inject: [ConfigService],
     }),
   ],
   providers: [AuthResolver, AuthService],
